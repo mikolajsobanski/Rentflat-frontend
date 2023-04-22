@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import './css/navbar.css';
+import './bootstrap.min.css';
+import './css/footer.css';
+import './css/socialPanel.css';
+import './css/videoSection.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

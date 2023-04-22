@@ -1,0 +1,10 @@
+npm install react-bootstrap bootstrap
+//
+npm install react-router-dom
+//
+npm install react-icons
+//
+npm install react-router-bootstrap
+//
+npm install bootstrap
+//
