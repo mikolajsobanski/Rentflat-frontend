@@ -5,6 +5,8 @@ import { Form, Button, Row, Col} from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
 import { useNavigate } from 'react-router-dom';
 import { register } from '../actions/userActions'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 
 function RegisterScreen({location, history}) {
 
@@ -13,6 +15,11 @@ function RegisterScreen({location, history}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [surname, setSurname] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
+    const [city, setCity] = useState('')
+    const [streetAddress, setStreetAddress] = useState('')
+    const [postalCode, setPostalCode] = useState('')
     const [message, setMessage] = useState('')
 
     const redirect = location ? location.search.split('=')[1] : '/'
@@ -33,7 +40,7 @@ function RegisterScreen({location, history}) {
         if (password !== confirmPassword) {
             setMessage('Passwords do not match')
         } else {
-            dispatch(register(name, email, password))
+            dispatch(register(name, email, password,surname,phoneNumber,city,streetAddress,postalCode))
         }
         reload('/')
     }
@@ -42,6 +49,9 @@ function RegisterScreen({location, history}) {
         <div>
         <FormContainer>
             <h1 className='text-center py-4 '>Create account</h1>
+            {message && <Message variant='danger'>{message}</Message>}
+            {error && <Message variant='danger'>{error}</Message>}
+            {loading && <Loader />}
             <Form onSubmit={submitHandler}>
 
                 <Form.Group className='py-3' controlId='name'>
@@ -67,6 +77,68 @@ function RegisterScreen({location, history}) {
                     >
                     </Form.Control>
                 </Form.Group>
+
+                <Form.Group className='py-3' controlId='surname'>
+                    <Form.Label>Surname</Form.Label>
+                    <Form.Control
+                        required
+                        type='surname'
+                        placeholder='Enter surname'
+                        value={surname}
+                        onChange={(e) => setSurname(e.target.value)}
+                    >
+                    </Form.Control>
+                </Form.Group>
+
+                <Form.Group className='py-3' controlId='phoneNumber'>
+                    <Form.Label>Phone number</Form.Label>
+                    <Form.Control
+                        required
+                        type='number'
+                        min={0}
+                        placeholder='Enter phone number'
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                    >
+                    </Form.Control>
+                </Form.Group>
+
+                <Form.Group className='py-3' controlId='city'>
+                    <Form.Label>City</Form.Label>
+                    <Form.Control
+                        required
+                        type='name'
+                        placeholder='Enter city'
+                        value={city}
+                        onChange={(e) => setCity(e.target.value)}
+                    >
+                    </Form.Control>
+                </Form.Group>
+
+                <Form.Group className='py-3' controlId='streetAddress'>
+                    <Form.Label>Street address</Form.Label>
+                    <Form.Control
+                        required
+                        type='name'
+                        placeholder='Enter street address'
+                        value={streetAddress}
+                        onChange={(e) => setStreetAddress(e.target.value)}
+                    >
+                    </Form.Control>
+                </Form.Group>
+
+                <Form.Group className='py-3' controlId='postalCode'>
+                    <Form.Label>Postal code</Form.Label>
+                    <Form.Control
+                        required
+                        type='name'
+                        placeholder='Enter postal code'
+                        value={postalCode}
+                        onChange={(e) => setPostalCode(e.target.value)}
+                    >
+                    </Form.Control>
+                </Form.Group>
+
 
                 <Form.Group className='py-3' controlId='password'>
                     <Form.Label>Password</Form.Label>

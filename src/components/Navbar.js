@@ -1,15 +1,30 @@
 import React, {useState} from 'react'
+import { useDispatch, useSelector} from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../actions/userActions';
 import { Link } from 'react-router-dom'
 import {FiMenu} from 'react-icons/fi'
 import {MdClose} from 'react-icons/md'
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { LinkContainer } from 'react-router-bootstrap'
 import '../css/navbar.css'
+import { Button } from 'react-bootstrap';
+
 
 function Navbar() {
     const[click, setClick] = useState(false)
     const handleClick = () => setClick(!click)
     const closeMobileMenu = () => setClick(false)
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+    let reload = useNavigate()
+    const dispatch = useDispatch()
+  
+    const logoutHandler = () => {
+      dispatch(logout())
+      reload("/")
+    }
 
    
   return (
@@ -23,9 +38,22 @@ function Navbar() {
                     {click ? <MdClose/> : <FiMenu/>}
                 </div>
                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-                    
-                        
+                {userInfo ? (<>
+                        <li className='nav-item'>
+                          <Link to='/' className='nav-links' onClick={closeMobileMenu}>
+                              Home
+                          </Link>
+                        </li>
+                        <li className='nav-item'>
+                          <Link to='/profile' className='nav-links' onClick={closeMobileMenu}>
+                              Profile
+                          </Link>
+                        </li>
+                        <li>
+                            <Button onClick={logoutHandler}>Logout</Button>
+                        </li>
                           
+                          </>) : (<>
                           <li className='nav-item'>
                               <Link to='/' className='nav-links' onClick={closeMobileMenu}>
                                   Quick look
@@ -41,8 +69,7 @@ function Navbar() {
                                   Sign up
                               </Link>
                           </li>
-                          
-                   
+                          </>)}
                 </ul>
             </div>
         </nav>
