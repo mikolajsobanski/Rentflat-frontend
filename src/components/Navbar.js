@@ -49,8 +49,11 @@ function Navbar() {
                               Profile
                           </Link>
                         </li>
-                        <li>
-                            <Button onClick={logoutHandler}>Logout</Button>
+                        <li  className='nav-item'>
+                            
+                            <Link to='/' className='nav-links' onClick={logoutHandler}>
+                              Logout
+                          </Link>
                         </li>
                           
                           </>) : (<>

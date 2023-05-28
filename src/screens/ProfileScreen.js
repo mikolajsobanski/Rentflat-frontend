@@ -1,16 +1,36 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Form, Button,ListGroup, Row, Col,Table, Container} from 'react-bootstrap'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import FormContainer from '../components/FormContainer'
 import Nav from 'react-bootstrap/Nav';
 import { LinkContainer } from 'react-router-bootstrap'
-
+import UserOffer from '../components/UserOffer'
+import { listUserOffers } from '../actions/offerActions'
 
 
 function ProfileScreen() {
+  const dispatch = useDispatch()
+  const offerUserList = useSelector(state => state.offerUserList)
+  const {offers, loading, error} = offerUserList
+
+  const userLogin = useSelector(state => state.userLogin)
+  const {userInfo} = userLogin
+
+  const offerDelete = useSelector(state => state.offerDelete)
+  const {loading: loadingDelete, error:errorDelete, success:successDelete} = offerDelete
+
+  let history = useNavigate()
+
+  useEffect(() =>{
+    if(!userInfo){
+      history('/login')
+    }else{
+      dispatch(listUserOffers())
+    }
+  },[dispatch, successDelete])
       
  
 
@@ -46,7 +66,13 @@ function ProfileScreen() {
                                 <tbody>
                               
                                             <Row>
-                                            
+                                              {offers && offers.map(offer => (
+                                                        <Col key={offer.id}>
+                                                            <UserOffer offer={offer} />
+                                                        </Col>
+                                                    ))
+                                                
+                                                }
                                             
                                             
                                             </Row>
