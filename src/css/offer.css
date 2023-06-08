@@ -1,0 +1,23 @@
+.offer-rowItem{
+    font-size: 18px;
+}
+.offer-row{
+    padding: 1rem;
+}
+.goSee{
+    text-align: center;
+    padding: 1rem;
+    border-style: solid;
+    border-color: red;
+    color: red;
+    border-radius: 25px;
+    
+    
+}
+.link-gosee{
+    text-align: center;
+    padding: 2rem;
+}
+.offer-price{
+    margin-top: 2rem;
+}

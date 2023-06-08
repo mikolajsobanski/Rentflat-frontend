@@ -1,0 +1,22 @@
+.editSection{
+    font-size: 32px;
+}
+.edit-icon :hover{
+    color:aqua;
+}
+.delete-icon{
+    float: right;
+}
+.userProductCard{
+    margin-top: 1rem;
+    
+}
+.offerImage{
+    width: 20rem;
+}
+.offerCard{
+    width: 20rem;
+}
+.userOffer-row{
+    margin-top: 2rem;
+}
