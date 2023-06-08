@@ -15,4 +15,7 @@ npm install redux react-redux
 npm install --save redux-devtools-extension
 //
 npm install redux-thunk
-//
+//zbudowanieObrazu
+//docker build -f Dockerfile.dev -t rentflatfrontend .
+//uruchomieniekontenera
+//docker run -d --rm -p 3000:3000 --name rentflatfrontendContainer rentflatfrontend
