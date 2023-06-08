@@ -9,6 +9,7 @@ import Navbar from './components/Navbar';
 import CopyWrites from './components/CopyWrites'
 import Footer from './components/Footer'
 import SocialPanel from './components/SocialPanel';
+import ProfileScreen from './screens/ProfileScreen';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<HomeScreen />} />
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<RegisterScreen />} />
+          <Route path="/profile" element={<ProfileScreen />} />
         </Routes>
       </main>
       <CopyWrites />
