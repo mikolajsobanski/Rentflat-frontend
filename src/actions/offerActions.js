@@ -12,6 +12,10 @@ import {
     OFFER_DELETE_SUCCESS,
     OFFER_DELETE_FAIL,
 
+    OFFER_SINGLE_REQUEST,
+    OFFER_SINGLE_SUCCESS,
+    OFFER_SINGLE_FAIL,
+
 } from '../constants/offerConstants'
 
 export const listOffers = () => async(dispatch) => {
@@ -30,6 +34,24 @@ export const listOffers = () => async(dispatch) => {
                 : error.message,
         })
 
+    }
+}
+
+export const getOffer = (id) => async(dispatch) => {
+    try {
+        dispatch({type: OFFER_SINGLE_REQUEST})
+        const { data } = await axios.get(`offers/${id}`)
+        dispatch({
+            type: OFFER_SINGLE_SUCCESS,
+            payload: data
+        })
+    }catch(error){
+        dispatch({
+            type: OFFER_SINGLE_FAIL,
+            payload:error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
     }
 }
 
