@@ -4,6 +4,7 @@ import { Routes } from "react-router-dom";
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import HomeScreen from './screens/HomeScreen'
+import OfferDetailsScreen from './screens/OfferDetailsScreen'
 
 import Navbar from './components/Navbar';
 import CopyWrites from './components/CopyWrites'
@@ -22,6 +23,7 @@ function App() {
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/profile" element={<ProfileScreen />} />
+          <Route path="/offers/:id" element={<OfferDetailsScreen />} />
         </Routes>
       </main>
       <CopyWrites />
