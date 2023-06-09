@@ -20,7 +20,7 @@ export const login = (email, password) => async (dispatch) => {
             }
         }
         const {data} = await axios.post(
-            '/api/users/login/',
+            'http://localhost:8080/auth/authenthicate/',
             {'email': email, 'password': password},
             config
             )
@@ -58,7 +58,7 @@ export const register = (name, email, password,surname,phoneNumber,city,streetAd
             }
         }
         const {data} = await axios.post(
-            '/api/users/register/',
+            'http://localhost:8080/auth/register/',
             {'name':name, 'email': email, 'password': password, 'surname':surname, 'phoneNumber':phoneNumber, 'city':city, 'streetAddress':streetAddress, 'postalCode':postalCode},
             config
             )
