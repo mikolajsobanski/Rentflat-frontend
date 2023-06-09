@@ -21,7 +21,7 @@ import {
 export const listOffers = () => async(dispatch) => {
     try {
         dispatch({type: OFFER_LIST_REQUEST})
-        const { data } = await axios.get(`offers/`)
+        const { data } = await axios.get(`http://localhost:8080/offers/`)
         dispatch({
             type:OFFER_LIST_SUCCESS,
             payload: data
@@ -40,7 +40,7 @@ export const listOffers = () => async(dispatch) => {
 export const getOffer = (id) => async(dispatch) => {
     try {
         dispatch({type: OFFER_SINGLE_REQUEST})
-        const { data } = await axios.get(`offers/${id}`)
+        const { data } = await axios.get(`http://localhost:8080/offers/${id}`)
         dispatch({
             type: OFFER_SINGLE_SUCCESS,
             payload: data
@@ -71,7 +71,7 @@ export const listUserOffers = () => async(dispatch, getState) => {
         }
 
         const { data } = await axios.get(
-            `offers/customer`,
+            `http://localhost:8080/offers/customer`,
             config
             )
 
@@ -109,7 +109,7 @@ export const deleteOffer = (id) => async (dispatch, getState) => {
         }
 
         const { data } = await axios.delete(
-            `/offers/delete/${id}/`,
+            `http://localhost:8080/offers/delete/${id}/`,
             config
         )
 
