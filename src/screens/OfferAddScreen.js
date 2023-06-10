@@ -176,8 +176,8 @@ function OfferAddScreen({location, history}) {
                         <Form.Label>Main picture</Form.Label>
                         <Form.Control
                             required
-                            type='name'
-                            placeholder='Enter main picture'
+                            type='file'
+                            placeholder='Select main picture'
                             value={mainPicture}
                             onChange={(e) => setMainPicture(e.target.value)}
                         >
