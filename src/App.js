@@ -5,6 +5,7 @@ import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import HomeScreen from './screens/HomeScreen'
 import OfferDetailsScreen from './screens/OfferDetailsScreen'
+import OfferAddScreen from "./screens/OfferAddScreen";
 
 import Navbar from './components/Navbar';
 import CopyWrites from './components/CopyWrites'
@@ -24,6 +25,7 @@ function App() {
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/offers/:id" element={<OfferDetailsScreen />} />
+          <Route path="/offer-add" element={<OfferAddScreen />} />
         </Routes>
       </main>
       <CopyWrites />
