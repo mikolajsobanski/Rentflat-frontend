@@ -10,12 +10,12 @@ function Offer({ offer }) {
 
   return (
     <Card className="offerCard">
-        <Link to={`/offer/${offer.id}`}>
+        <Link to={`/offers/${offer.id}`}>
             <Card.Img className='offerImage' src={offer.mainPicture} />
         </Link>
     
         <Card.Body>
-        <Link to={`/offer/${offer.id}`}>
+        <Link to={`/offers/${offer.id}`}>
             <Row className='offer-row'>
                 <Col md={5}>  
                     <div className="offer-rowItem">
@@ -51,7 +51,7 @@ function Offer({ offer }) {
         </Card.Text>
 
         </Card.Body>
-        <Link className='link-gosee' to={`/offer/${offer.id}`}>
+        <Link className='link-gosee' to={`/offers/${offer.id}`}>
         <div className='goSee'>Zobacz oferte</div>
         </Link>
         

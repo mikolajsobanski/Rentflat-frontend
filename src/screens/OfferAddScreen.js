@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { Form, Button, Row, Col} from 'react-bootstrap'
+import { Form, Button} from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
 import { useNavigate } from 'react-router-dom';
 import { addOffer } from '../actions/offerActions'
@@ -10,10 +9,8 @@ import Loader from "../components/Loader";
 
 function OfferAddScreen({location, history}) {
 
-    //{'city':city, 'streetAddress': streetAddress, 'postalCode': postalCode, 'price':price, 'area':area, 'roomCount':roomCount,
-    //                 'marketType':marketType, 'description':description, 'district':district, 'mainPicture':mainPicture, 'allPictures':allPictures,
-    //                 'owner':owner, 'buildingDetails':buildingDetails, 'availableFrom':availableFrom, 'availableUntil':availableUntil},
 
+    const [id, setId] = useState('')
     const [city, setCity] = useState('')
     const [streetAddress, setStreetAddress] = useState('')
     const [postalCode, setPostalCode] = useState('')
@@ -24,8 +21,7 @@ function OfferAddScreen({location, history}) {
     const [description, setDescription] = useState('')
     const [district, setDistrict] = useState('')
     const [mainPicture, setMainPicture] = useState('')
-//    const [allPictures, setAllPictures] = useState('')
-    const [owner, setOwner] = useState('')
+    const [allPictures, setAllPictures] = useState('')
     const [buildingDetails, setBuildingDetails] = useState('')
     const [availableFrom, setAvailableFrom] = useState('')
     const [availableUntil, setAvailableUntil] = useState('')
@@ -45,13 +41,15 @@ function OfferAddScreen({location, history}) {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        if (availableUntil > availableFrom) {
-            setMessage('Incorrect rent dates!')
-        } else {
-            dispatch(addOffer(city, streetAddress, postalCode, price, area, roomCount, marketType, description, district,
-                mainPicture, /*allPictures,*/ owner, buildingDetails, availableFrom, availableUntil))
+         if (availableUntil < availableFrom) {
+             setMessage('Incorrect rent dates!')
+         } else {
+                dispatch(addOffer(id, city, streetAddress, postalCode, price, area, roomCount, marketType, description, district,
+                mainPicture, allPictures, buildingDetails, availableFrom, availableUntil))
         }
-        reload('/')
+        console.log(id, city, streetAddress, postalCode, price, area, roomCount, marketType, description, district,
+            mainPicture, allPictures, buildingDetails, availableFrom, availableUntil)
+        //reload('/')
     }
 
     return (
@@ -62,8 +60,21 @@ function OfferAddScreen({location, history}) {
                 {error && <Message variant='danger'>{error}</Message>}
                 {loading && <Loader />}
                 <Form onSubmit={submitHandler}>
+
+                    <Form.Group className='py-3' controlId='owner id'>
+                        <Form.Label>Owner's id</Form.Label>
+                        <Form.Control
+                            required
+                            type='name'
+                            placeholder='Enter owner id'
+                            value={id}
+                            onChange={(e) => setId(e.target.value)}
+                        >
+                        </Form.Control>
+                    </Form.Group>
+
                     <Form.Group className='py-3' controlId='city'>
-                        <Form.Label>Name</Form.Label>
+                        <Form.Label>Miasto</Form.Label>
                         <Form.Control
                             required
                             type='name'
@@ -115,7 +126,7 @@ function OfferAddScreen({location, history}) {
                         <Form.Label>Area</Form.Label>
                         <Form.Control
                             required
-                            type='name'
+                            type='number'
                             placeholder='Enter area'
                             value={area}
                             onChange={(e) => setArea(e.target.value)}
@@ -184,14 +195,15 @@ function OfferAddScreen({location, history}) {
                         </Form.Control>
                     </Form.Group>
 
-                    <Form.Group className='py-3' controlId='owner'>
-                        <Form.Label>Owner's id</Form.Label>
+                    <Form.Group className='py-3' controlId='allPictures'>
+                        <Form.Label>Other pictures</Form.Label>
                         <Form.Control
                             required
-                            type='number'
-                            placeholder='Enter owner id'
-                            value={owner}
-                            onChange={(e) => setOwner(e.target.value)}
+                            type='file' multiple
+                            accept='application/pdf, image/png'
+                            placeholder='Select other pictures'
+                            value={allPictures}
+                            onChange={(e) => setAllPictures(e.target.value)}
                         >
                         </Form.Control>
                     </Form.Group>

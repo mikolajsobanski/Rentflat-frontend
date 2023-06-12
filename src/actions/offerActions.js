@@ -25,7 +25,7 @@ import {
 export const listOffers = () => async(dispatch) => {
     try {
         dispatch({type: OFFER_LIST_REQUEST})
-        const { data } = await axios.get(`http://localhost:8080/offers/`)
+        const { data } = await axios.get(`http://localhost:8080/offers`)
         dispatch({
             type:OFFER_LIST_SUCCESS,
             payload: data
@@ -113,7 +113,7 @@ export const deleteOffer = (id) => async (dispatch, getState) => {
         }
 
         const { data } = await axios.delete(
-            `http://localhost:8080/offers/delete/${id}/`,
+            `http://localhost:8080/offers/delete/${id}`,
             config
         )
 
@@ -132,8 +132,8 @@ export const deleteOffer = (id) => async (dispatch, getState) => {
     }
 }
 
-export const addOffer = (city, streetAddress, postalCode, price, area, roomCount, marketType, description, district, mainPicture,
-                         allPictures, owner, buildingDetails, availableFrom, availableUntil) => async(dispatch) => {
+export const addOffer = (id, city, streetAddress, postalCode, price, area, roomCount, marketType, description, district, mainPicture,
+                         allPictures, buildingDetails, availableFrom, availableUntil) => async(dispatch) => {
     try{
         dispatch({
             type: OFFER_ADD_REQUEST
@@ -144,10 +144,10 @@ export const addOffer = (city, streetAddress, postalCode, price, area, roomCount
             }
         }
         const {data} = await axios.post(
-            'http://localhost:8080/offers/add/',
-            {'city':city, 'streetAddress': streetAddress, 'postalCode': postalCode, 'price':price, 'area':area, 'roomCount':roomCount,
-                'marketType':marketType, 'description':description, 'district':district, 'mainPicture':mainPicture, /*'allPictures':allPictures,*/
-                'owner':owner, 'buildingDetails':buildingDetails, 'availableFrom':availableFrom, 'availableUntil':availableUntil},
+            'http://localhost:8080/offers',
+            {'id':id, 'city':city, 'streetAddress': streetAddress, 'postalCode': postalCode, 'price':price, 'area':area, 'roomCount':roomCount,
+                'marketType':marketType, 'description':description, 'district':district, 'mainPicture':mainPicture, 'allPictures':allPictures,
+                'buildingDetails':buildingDetails, 'availableFrom':availableFrom, 'availableUntil':availableUntil},
             config
         )
 
