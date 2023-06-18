@@ -11,6 +11,7 @@ import CopyWrites from './components/CopyWrites'
 import Footer from './components/Footer'
 import SocialPanel from './components/SocialPanel';
 import ProfileScreen from './screens/ProfileScreen';
+import SearchScreen from './screens/SearchScreen';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/profile" element={<ProfileScreen />} />
+          <Route path="/search" element={<SearchScreen />} />
           <Route path="/offers/:id" element={<OfferDetailsScreen />} />
         </Routes>
       </main>
