@@ -1,19 +1,29 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {Row, Col, Table, Form, Carousel} from 'react-bootstrap'
+import {Row, Col, Table, Form, Carousel, Button} from 'react-bootstrap'
 import { Container } from 'react-bootstrap'
 import { getOffer } from '../actions/offerActions'
 import OfferTable from "../components/OfferTable";
 import sample_image from '../sample_image.png';
 import sample_image_2 from '../sample_image_2.png';
+import {useMatch} from "react-router-dom";
 
 const submitHandler = (e) => {
     e.preventDefault()
 }
 
 function OfferDetailsScreen() {
+    const dispatch = useDispatch()
     const singleOffer = useSelector(state => state.offerSingleGet)
-    const {offer, error, loading} = singleOffer
+    const {offer, loading: loadingSingleGet, success: successSingleGet, error: errorSingleGet} = singleOffer
+    useEffect(() => {
+
+        //console.log(window.location.pathname)
+        let urlElements = window.location.href.split('/')
+        console.log(urlElements)
+        dispatch(getOffer(urlElements[4]))
+    }, [])
+
 
     return(
         <div className='base-container' >
@@ -58,7 +68,7 @@ function OfferDetailsScreen() {
                             height: "100%",
                         }}>
                             <h1>
-                                Opis_oferty
+                                Opis Oferty
                             </h1>
                         </div>
                         <div style={{
@@ -70,6 +80,7 @@ function OfferDetailsScreen() {
                             borderRadius: 15
                         }}>
                             <div>
+                                {offer.description}
                             </div>
                         </div>
                     </Container>
@@ -108,6 +119,9 @@ function OfferDetailsScreen() {
 
                                 </Form.Control>
                             </Form.Group>
+                            <Button type='submit' variant='primary'>
+                                Confirm
+                            </Button>
                         </Form>
                     </Container>
                 </Col>

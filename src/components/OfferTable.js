@@ -26,35 +26,31 @@ function OfferTable({offer}) {
             <tbody>
             <tr>
                 <td>Miasto</td>
-                <td>###</td>
+                <td>{offer.city}</td>
             </tr>
             <tr>
                 <td>Adres</td>
-                <td>###</td>
+                <td>{offer.streetAddress}</td>
             </tr>
             <tr>
                 <td>Cena za m2</td>
-                <td>###</td>
+                <td>{offer.price}</td>
             </tr>
             <tr>
                 <td>Powierzchnia calkowita</td>
-                <td>###</td>
+                <td>{offer.area}</td>
             </tr>
             <tr>
                 <td>Liczba pokoi</td>
-                <td>###</td>
+                <td>{offer.roomCount}</td>
             </tr>
             <tr>
                 <td>Dostepne od</td>
-                <td>###</td>
+                <td>{offer.availableFrom}</td>
             </tr>
             <tr>
                 <td>Liczba pieter budynku</td>
-                <td>###</td>
-            </tr>
-            <tr>
-                <td>Data oddania</td>
-                <td>###</td>
+                <td>{offer.availableUntil}</td>
             </tr>
             </tbody>
         </Table>

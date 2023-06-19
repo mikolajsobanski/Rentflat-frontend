@@ -23,12 +23,16 @@ import {
     OFFER_ADD_REQUEST,
     OFFER_ADD_SUCCESS,
     OFFER_ADD_FAIL,
+
+    OFFER_UPDATE_REQUEST,
+    OFFER_UPDATE_SUCCESS,
+    OFFER_UPDATE_FAIL,
 } from '../constants/offerConstants'
 
 export const listOffers = () => async(dispatch) => {
     try {
         dispatch({type: OFFER_LIST_REQUEST})
-        const { data } = await axios.get(`http://localhost:8080/offers/`)
+        const { data } = await axios.get(`http://localhost:8080/offers`)
         dispatch({
             type:OFFER_LIST_SUCCESS,
             payload: data
@@ -116,7 +120,7 @@ export const deleteOffer = (id) => async (dispatch, getState) => {
         }
 
         const { data } = await axios.delete(
-            `http://localhost:8080/offers/delete/${id}/`,
+            `http://localhost:8080/offers/delete/${id}`,
             config
         )
 
@@ -156,8 +160,8 @@ export const listFilterOffers = (params) => async(dispatch) => {
     }
 }
 
-export const addOffer = (city, streetAddress, postalCode, price, area, roomCount, marketType, description, district, mainPicture,
-                         allPictures, owner, buildingDetails, availableFrom, availableUntil) => async(dispatch) => {
+export const addOffer = (id, city, streetAddress, postalCode, price, area, roomCount, marketType, description, district, mainPicture,
+                         allPictures, buildingDetails, availableFrom, availableUntil) => async(dispatch) => {
     try{
         dispatch({
             type: OFFER_ADD_REQUEST
@@ -168,10 +172,10 @@ export const addOffer = (city, streetAddress, postalCode, price, area, roomCount
             }
         }
         const {data} = await axios.post(
-            'http://localhost:8080/offers/add/',
-            {'city':city, 'streetAddress': streetAddress, 'postalCode': postalCode, 'price':price, 'area':area, 'roomCount':roomCount,
-                'marketType':marketType, 'description':description, 'district':district, 'mainPicture':mainPicture, /*'allPictures':allPictures,*/
-                'owner':owner, 'buildingDetails':buildingDetails, 'availableFrom':availableFrom, 'availableUntil':availableUntil},
+            'http://localhost:8080/offers',
+            {'id':id, 'city':city, 'streetAddress': streetAddress, 'postalCode': postalCode, 'price':price, 'area':area, 'roomCount':roomCount,
+                'marketType':marketType, 'description':description, 'district':district, 'mainPicture':mainPicture, 'allPictures':allPictures,
+                'buildingDetails':buildingDetails, 'availableFrom':availableFrom, 'availableUntil':availableUntil},
             config
         )
 
@@ -186,6 +190,42 @@ export const addOffer = (city, streetAddress, postalCode, price, area, roomCount
         dispatch({
             type:OFFER_ADD_FAIL,
 
+            payload:error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
+    }
+}
+
+export const updateOffer = (id, city, streetAddress, postalCode, price, area, roomCount, marketType, description, district, mainPicture,
+                         allPictures, buildingDetails, availableFrom, availableUntil) => async(dispatch) => {
+    try{
+        dispatch({
+            type: OFFER_UPDATE_REQUEST
+        })
+        const config = {
+            headers:{
+                'Content-type':'application/json'
+            }
+        }
+        const {data} = await axios.put(
+            'http://localhost:8080/offers',
+            {'id':id, 'city':city, 'streetAddress': streetAddress, 'postalCode': postalCode, 'price':price, 'area':area, 'roomCount':roomCount,
+                'marketType':marketType, 'description':description, 'district':district, 'mainPicture':mainPicture, 'allPictures':allPictures,
+                'buildingDetails':buildingDetails, 'availableFrom':availableFrom, 'availableUntil':availableUntil},
+            config
+        )
+
+        dispatch({
+            type:OFFER_UPDATE_SUCCESS,
+            payload:data
+        })
+
+        localStorage.setItem('offerInfo', JSON.stringify(data))
+
+    }catch(error){
+        dispatch({
+            type:OFFER_UPDATE_FAIL,
             payload:error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message,
