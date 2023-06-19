@@ -144,7 +144,7 @@ export const listFilterOffers = (params) => async(dispatch) => {
         dispatch({type: OFFER_FILTER_LIST_REQUEST})
         console.log(params.city,params.streetAddress,params.postalCode,params.district,params.marketType,params.areaFrom,params.areaTo,params.roomCountFrom,params.roomCountTo,params.avalibleFrom,params.avalibleUntil, params.priceFrom,params.priceTo)
         const { data } = await 
-        axios.get(`http://localhost:8080/offers/filter?city=${params.city}&streetAddress=${params.streetAddress}&postalCode=${params.postalCode}&priceFrom=${params.priceFrom}&priceTo=${params.priceTo}&areaFrom=${params.areaFrom}&areaTo=${params.areaTo}&roomCountFrom=${params.roomCountFrom}&roomCountTo=${params.roomCountTo}&marketType=${params.marketType}&district=${params.district}&availableFrom=${params.avalibleFrom}&availableUntil=${params.avalibleUntil}`)
+        axios.get(`http://localhost:8080/offers/filter?city=${params.city}&streetAddress=${params.streetAddress}&postalCode=${params.postalCode}&priceFrom=${params.priceFrom}&priceTo=${params.priceTo}&areaFrom=${params.areaFrom}&areaTo=${params.areaTo}&roomCountFrom=${params.roomCountFrom}&roomCountTo=${params.roomCountTo}&marketType=${params.marketType}&district=${params.district}&availableFrom="${params.avalibleFrom}"&availableUntil=${params.avalibleUntil}`)
         dispatch({
             type:OFFER_FILTER_LIST_SUCCESS,
             payload: data

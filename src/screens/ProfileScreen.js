@@ -42,9 +42,6 @@ function ProfileScreen() {
         <LinkContainer to='/offer-add'>
               <Nav.Link className='btn btn-light my-4 py-3 rounded'>Dodaj oferte</Nav.Link>
         </LinkContainer>
-        <LinkContainer to='/offer-update'>
-              <Nav.Link className='btn btn-light my-4 py-3 rounded'>Zaktualizuj oferte</Nav.Link>
-        </LinkContainer>
         <LinkContainer to='/search'>
               <Nav.Link className='btn btn-light my-4 py-3 rounded'>Szukaj</Nav.Link>
         </LinkContainer>
