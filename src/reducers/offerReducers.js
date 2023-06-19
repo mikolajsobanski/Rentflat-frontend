@@ -15,6 +15,10 @@ import {
     OFFER_SINGLE_SUCCESS,
     OFFER_SINGLE_FAIL,
 
+    OFFER_FILTER_LIST_REQUEST,
+    OFFER_FILTER_LIST_SUCCESS,
+    OFFER_FILTER_LIST_FAIL,
+
     OFFER_ADD_REQUEST,
     OFFER_ADD_SUCCESS,
     OFFER_ADD_FAIL,
@@ -96,6 +100,25 @@ export const offerSingleReducer = (state = { }, action) => {
                 loading: false,
                 error: action.payload
             }
+
+        default:
+            return state
+    }
+}
+
+export const offerFilterListReducer = (state = { offers: [] }, action) => {
+    switch (action.type) {
+        case OFFER_FILTER_LIST_REQUEST:
+            return { loading: true, offers: [] }
+
+        case OFFER_FILTER_LIST_SUCCESS:
+            return {
+                loading: false,
+                offers: action.payload.offers
+            }
+
+        case OFFER_FILTER_LIST_FAIL:
+            return { loading: false, error: action.payload }
 
         default:
             return state
