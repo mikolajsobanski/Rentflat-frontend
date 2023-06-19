@@ -18,6 +18,10 @@ import {
     OFFER_FILTER_LIST_REQUEST,
     OFFER_FILTER_LIST_SUCCESS,
     OFFER_FILTER_LIST_FAIL,
+
+    OFFER_ADD_REQUEST,
+    OFFER_ADD_SUCCESS,
+    OFFER_ADD_FAIL,
 } from '../constants/offerConstants'
 
 export const offerListReducer = (state = { offers: [] }, action) => {
@@ -114,6 +118,22 @@ export const offerFilterListReducer = (state = { offers: [] }, action) => {
             }
 
         case OFFER_FILTER_LIST_FAIL:
+            return { loading: false, error: action.payload }
+
+        default:
+            return state
+    }
+}
+
+export const offerAddReducer = (state = { }, action) => {
+    switch (action.type) {
+        case OFFER_ADD_REQUEST:
+            return { loading: true, ...state }
+
+        case OFFER_ADD_SUCCESS:
+            return { loading: false, error: action.payload }
+
+        case OFFER_ADD_FAIL:
             return { loading: false, error: action.payload }
 
         default:

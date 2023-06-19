@@ -19,12 +19,16 @@ import {
     OFFER_FILTER_LIST_REQUEST,
     OFFER_FILTER_LIST_SUCCESS,
     OFFER_FILTER_LIST_FAIL,
+
+    OFFER_ADD_REQUEST,
+    OFFER_ADD_SUCCESS,
+    OFFER_ADD_FAIL,
 } from '../constants/offerConstants'
 
 export const listOffers = () => async(dispatch) => {
     try {
         dispatch({type: OFFER_LIST_REQUEST})
-        const { data } = await axios.get(`offers/`)
+        const { data } = await axios.get(`http://localhost:8080/offers/`)
         dispatch({
             type:OFFER_LIST_SUCCESS,
             payload: data
@@ -43,7 +47,7 @@ export const listOffers = () => async(dispatch) => {
 export const getOffer = (id) => async(dispatch) => {
     try {
         dispatch({type: OFFER_SINGLE_REQUEST})
-        const { data } = await axios.get(`offers/${id}`)
+        const { data } = await axios.get(`http://localhost:8080/offers/${id}`)
         dispatch({
             type: OFFER_SINGLE_SUCCESS,
             payload: data
@@ -74,7 +78,7 @@ export const listUserOffers = () => async(dispatch, getState) => {
         }
 
         const { data } = await axios.get(
-            `offers/customer`,
+            `http://localhost:8080/offers/customer`,
             config
             )
 
@@ -112,7 +116,7 @@ export const deleteOffer = (id) => async (dispatch, getState) => {
         }
 
         const { data } = await axios.delete(
-            `/offers/delete/${id}/`,
+            `http://localhost:8080/offers/delete/${id}/`,
             config
         )
 
@@ -149,6 +153,42 @@ export const listFilterOffers = (params) => async(dispatch) => {
                 ? error.response.data.detail
                 : error.message,
         })
+    }
+}
 
+export const addOffer = (city, streetAddress, postalCode, price, area, roomCount, marketType, description, district, mainPicture,
+                         allPictures, owner, buildingDetails, availableFrom, availableUntil) => async(dispatch) => {
+    try{
+        dispatch({
+            type: OFFER_ADD_REQUEST
+        })
+        const config = {
+            headers:{
+                'Content-type':'application/json'
+            }
+        }
+        const {data} = await axios.post(
+            'http://localhost:8080/offers/add/',
+            {'city':city, 'streetAddress': streetAddress, 'postalCode': postalCode, 'price':price, 'area':area, 'roomCount':roomCount,
+                'marketType':marketType, 'description':description, 'district':district, 'mainPicture':mainPicture, /*'allPictures':allPictures,*/
+                'owner':owner, 'buildingDetails':buildingDetails, 'availableFrom':availableFrom, 'availableUntil':availableUntil},
+            config
+        )
+
+        dispatch({
+            type:OFFER_ADD_SUCCESS,
+            payload:data
+        })
+
+        localStorage.setItem('offerInfo', JSON.stringify(data))
+
+    }catch(error){
+        dispatch({
+            type:OFFER_ADD_FAIL,
+
+            payload:error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
     }
 }
