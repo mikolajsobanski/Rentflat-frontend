@@ -18,6 +18,10 @@ import {
     OFFER_ADD_REQUEST,
     OFFER_ADD_SUCCESS,
     OFFER_ADD_FAIL,
+
+    OFFER_UPDATE_REQUEST,
+    OFFER_UPDATE_SUCCESS,
+    OFFER_UPDATE_FAIL,
 } from '../constants/offerConstants'
 
 export const offerListReducer = (state = { offers: [] }, action) => {
@@ -111,6 +115,22 @@ export const offerAddReducer = (state = { }, action) => {
             return { loading: false, success:true, offer: action.payload }
 
         case OFFER_ADD_FAIL:
+            return { loading: false, error: action.payload }
+
+        default:
+            return state
+    }
+}
+
+export const offerUpdateReducer = (state = { }, action) => {
+    switch (action.type) {
+        case OFFER_UPDATE_REQUEST:
+            return { loading: true}
+
+        case OFFER_UPDATE_SUCCESS:
+            return { loading: false, success:true, offer: action.payload }
+
+        case OFFER_UPDATE_FAIL:
             return { loading: false, error: action.payload }
 
         default:

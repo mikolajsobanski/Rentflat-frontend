@@ -20,6 +20,9 @@ import {
     OFFER_ADD_SUCCESS,
     OFFER_ADD_FAIL,
 
+    OFFER_UPDATE_REQUEST,
+    OFFER_UPDATE_SUCCESS,
+    OFFER_UPDATE_FAIL,
 } from '../constants/offerConstants'
 
 export const listOffers = () => async(dispatch) => {
@@ -161,6 +164,42 @@ export const addOffer = (id, city, streetAddress, postalCode, price, area, roomC
     }catch(error){
         dispatch({
             type:OFFER_ADD_FAIL,
+            payload:error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
+    }
+}
+
+export const updateOffer = (id, city, streetAddress, postalCode, price, area, roomCount, marketType, description, district, mainPicture,
+                         allPictures, buildingDetails, availableFrom, availableUntil) => async(dispatch) => {
+    try{
+        dispatch({
+            type: OFFER_UPDATE_REQUEST
+        })
+        const config = {
+            headers:{
+                'Content-type':'application/json'
+            }
+        }
+        const {data} = await axios.put(
+            'http://localhost:8080/offers',
+            {'id':id, 'city':city, 'streetAddress': streetAddress, 'postalCode': postalCode, 'price':price, 'area':area, 'roomCount':roomCount,
+                'marketType':marketType, 'description':description, 'district':district, 'mainPicture':mainPicture, 'allPictures':allPictures,
+                'buildingDetails':buildingDetails, 'availableFrom':availableFrom, 'availableUntil':availableUntil},
+            config
+        )
+
+        dispatch({
+            type:OFFER_UPDATE_SUCCESS,
+            payload:data
+        })
+
+        localStorage.setItem('offerInfo', JSON.stringify(data))
+
+    }catch(error){
+        dispatch({
+            type:OFFER_UPDATE_FAIL,
             payload:error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message,
