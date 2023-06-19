@@ -3,7 +3,7 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools} from 'redux-devtools-extension'
 import { legacy_createStore as createStore} from 'redux'
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducers'
-import { offerDeleteReducer, offerFilterListReducer, offerListReducer, offerUserListReducer } from './reducers/offerReducers'
+import { offerDeleteReducer, offerFilterListReducer, offerUpdateReducer, offerListReducer, offerUserListReducer } from './reducers/offerReducers'
 import { offerSingleReducer, offerAddReducer} from "./reducers/offerReducers"
 
 
@@ -17,6 +17,7 @@ const reducer = combineReducers({
     offerSingleGet: offerSingleReducer,
     offersFilterList: offerFilterListReducer,
     offerAdd: offerAddReducer,
+    offerUpdate: offerUpdateReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ?

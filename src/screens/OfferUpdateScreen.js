@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Form, Button} from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
 import { useNavigate } from 'react-router-dom';
-import { addOffer } from '../actions/offerActions'
+import { updateOffer } from '../actions/offerActions'
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 
-function OfferAddScreen({location, history}) {
+function OfferUpdateScreen({location, history}) {
 
 
     const [id, setId] = useState('')
@@ -30,7 +30,7 @@ function OfferAddScreen({location, history}) {
     const redirect = location ? location.search.split('=')[1] : '/'
     const dispatch = useDispatch()
     const reload = useNavigate()
-    const offerAdd = useSelector(state => state.offerAdd)
+    const offerAdd = useSelector(state => state.offerUpdate)
     const { error, loading, offerInfo } = offerAdd
 
     useEffect(() => {
@@ -44,7 +44,7 @@ function OfferAddScreen({location, history}) {
          if (availableUntil < availableFrom) {
              setMessage('Incorrect rent dates!')
          } else {
-                dispatch(addOffer(id, city, streetAddress, postalCode, price, area, roomCount, marketType, description, district,
+                dispatch(updateOffer(id, city, streetAddress, postalCode, price, area, roomCount, marketType, description, district,
                 mainPicture, allPictures, buildingDetails, availableFrom, availableUntil))
         }
         console.log(id, city, streetAddress, postalCode, price, area, roomCount, marketType, description, district,
@@ -55,7 +55,7 @@ function OfferAddScreen({location, history}) {
     return (
         <div>
             <FormContainer>
-                <h1 className='text-center py-4 '>Add new offer</h1>
+                <h1 className='text-center py-4 '>Update an offer</h1>
                 {message && <Message variant='danger'>{message}</Message>}
                 {error && <Message variant='danger'>{error}</Message>}
                 {loading && <Loader />}
@@ -66,7 +66,7 @@ function OfferAddScreen({location, history}) {
                         <Form.Control
                             required
                             type='name'
-                            placeholder='Enter owner id'
+                            placeholder='Enter new owner id'
                             value={id}
                             onChange={(e) => setId(e.target.value)}
                         >
@@ -78,7 +78,7 @@ function OfferAddScreen({location, history}) {
                         <Form.Control
                             required
                             type='name'
-                            placeholder='Enter city'
+                            placeholder='Enter new city'
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
                         >
@@ -90,7 +90,7 @@ function OfferAddScreen({location, history}) {
                         <Form.Control
                             required
                             type='name'
-                            placeholder='Enter street address'
+                            placeholder='Enter new street address'
                             value={streetAddress}
                             onChange={(e) => setStreetAddress(e.target.value)}
                         >
@@ -102,7 +102,7 @@ function OfferAddScreen({location, history}) {
                         <Form.Control
                             required
                             type='name'
-                            placeholder='Enter postal code'
+                            placeholder='Enter new postal code'
                             value={postalCode}
                             onChange={(e) => setPostalCode(e.target.value)}
                         >
@@ -115,7 +115,7 @@ function OfferAddScreen({location, history}) {
                             required
                             type='number'
                             min={0}
-                            placeholder='Enter price'
+                            placeholder='Enter new price'
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                         >
@@ -127,7 +127,7 @@ function OfferAddScreen({location, history}) {
                         <Form.Control
                             required
                             type='number'
-                            placeholder='Enter area'
+                            placeholder='Enter new area'
                             value={area}
                             onChange={(e) => setArea(e.target.value)}
                         >
@@ -140,7 +140,7 @@ function OfferAddScreen({location, history}) {
                             required
                             type='number'
                             min={0}
-                            placeholder='Enter room count'
+                            placeholder='Enter new room count'
                             value={roomCount}
                             onChange={(e) => setRoomCount(e.target.value)}
                         >
@@ -152,7 +152,7 @@ function OfferAddScreen({location, history}) {
                         <Form.Control
                             required
                             type='name'
-                            placeholder='Enter market type'
+                            placeholder='Enter new market type'
                             value={marketType}
                             onChange={(e) => setMarketType(e.target.value)}
                         >
@@ -164,7 +164,7 @@ function OfferAddScreen({location, history}) {
                         <Form.Control
                             required
                             type='name'
-                            placeholder='Enter description'
+                            placeholder='Enter new description'
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                         >
@@ -176,7 +176,7 @@ function OfferAddScreen({location, history}) {
                         <Form.Control
                             required
                             type='name'
-                            placeholder='Enter district'
+                            placeholder='Enter new district'
                             value={district}
                             onChange={(e) => setDistrict(e.target.value)}
                         >
@@ -188,7 +188,7 @@ function OfferAddScreen({location, history}) {
                         <Form.Control
                             required
                             type='file'
-                            placeholder='Select main picture'
+                            placeholder='Select new main picture'
                             value={mainPicture}
                             onChange={(e) => setMainPicture(e.target.value)}
                         >
@@ -201,7 +201,7 @@ function OfferAddScreen({location, history}) {
                             required
                             type='file' multiple
                             accept='application/pdf, image/png'
-                            placeholder='Select other pictures'
+                            placeholder='Select new other pictures'
                             value={allPictures}
                             onChange={(e) => setAllPictures(e.target.value)}
                         >
@@ -213,7 +213,7 @@ function OfferAddScreen({location, history}) {
                         <Form.Control
                             required
                             type='number'
-                            placeholder='Enter building details id'
+                            placeholder='Enter new building details id'
                             value={buildingDetails}
                             onChange={(e) => setBuildingDetails(e.target.value)}
                         >
@@ -225,7 +225,7 @@ function OfferAddScreen({location, history}) {
                         <Form.Control
                             required
                             type='date'
-                            placeholder='Enter available from date'
+                            placeholder='Enter new available from date'
                             value={availableFrom}
                             onChange={(e) => setAvailableFrom(e.target.value)}
                         >
@@ -237,7 +237,7 @@ function OfferAddScreen({location, history}) {
                         <Form.Control
                             required
                             type='date'
-                            placeholder='Enter available until date'
+                            placeholder='Enter new available until date'
                             value={availableUntil}
                             onChange={(e) => setAvailableUntil(e.target.value)}
                         >
@@ -254,4 +254,4 @@ function OfferAddScreen({location, history}) {
     )
 }
 
-export default OfferAddScreen;
+export default OfferUpdateScreen;

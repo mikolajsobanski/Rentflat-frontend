@@ -22,6 +22,10 @@ import {
     OFFER_ADD_REQUEST,
     OFFER_ADD_SUCCESS,
     OFFER_ADD_FAIL,
+
+    OFFER_UPDATE_REQUEST,
+    OFFER_UPDATE_SUCCESS,
+    OFFER_UPDATE_FAIL,
 } from '../constants/offerConstants'
 
 export const offerListReducer = (state = { offers: [] }, action) => {
@@ -32,7 +36,7 @@ export const offerListReducer = (state = { offers: [] }, action) => {
         case OFFER_LIST_SUCCESS:
             return {
                 loading: false,
-                offers: action.payload.offers
+                offers: action.payload
             }
 
         case OFFER_LIST_FAIL:
@@ -51,7 +55,7 @@ export const offerUserListReducer = (state = { offers: [] }, action) => {
         case OFFER_LIST_USER_SUCCESS:
             return {
                 loading: false,
-                offers: action.payload.offers
+                offers: action.payload
             }
 
         case OFFER_LIST_USER_FAIL:
@@ -81,7 +85,7 @@ export const offerDeleteReducer = (state = { }, action) => {
     }
 }
 
-export const offerSingleReducer = (state = { }, action) => {
+export const offerSingleReducer = (state = {offer:{}}, action) => {
     switch (action.type) {
         case OFFER_SINGLE_REQUEST:
             return {
@@ -92,7 +96,7 @@ export const offerSingleReducer = (state = { }, action) => {
         case OFFER_SINGLE_SUCCESS:
             return {
                 loading: false,
-                success: true
+                offer: action.payload
             }
 
         case OFFER_SINGLE_FAIL:
@@ -128,12 +132,28 @@ export const offerFilterListReducer = (state = { offers: [] }, action) => {
 export const offerAddReducer = (state = { }, action) => {
     switch (action.type) {
         case OFFER_ADD_REQUEST:
-            return { loading: true, ...state }
+            return { loading: true}
 
         case OFFER_ADD_SUCCESS:
-            return { loading: false, error: action.payload }
+            return { loading: false, success:true, offer: action.payload }
 
         case OFFER_ADD_FAIL:
+            return { loading: false, error: action.payload }
+
+        default:
+            return state
+    }
+}
+
+export const offerUpdateReducer = (state = { }, action) => {
+    switch (action.type) {
+        case OFFER_UPDATE_REQUEST:
+            return { loading: true}
+
+        case OFFER_UPDATE_SUCCESS:
+            return { loading: false, success:true, offer: action.payload }
+
+        case OFFER_UPDATE_FAIL:
             return { loading: false, error: action.payload }
 
         default:
