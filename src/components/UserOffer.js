@@ -29,17 +29,17 @@ function UserOffer({ offer }) {
   return (
     
     <Card className="offerCard">
-        <Link to={`/offer/${offer.id}`}>
+        <Link to={`/offers/${offer.id}`}>
             <Card.Img className='offerImage' src={offer.mainPicture} />
         </Link>
 
         <Card.Body>
-        <Link to={`/offer/${offer.id}`}>
+        <Link to={`/offers/${offer.id}`}>
             <Card.Title as="div">
                 <strong>Miasto:{offer.city}</strong>
             </Card.Title>
         </Link>
-        <Link to={`/offer/${offer.id}`}>
+        <Link to={`/offers/${offer.id}`}>
             <Card.Title as="div">
                 <strong>Ulica:{offer.streetAddress}</strong>
             </Card.Title>
@@ -51,7 +51,7 @@ function UserOffer({ offer }) {
         <Row className='userOffer-row'>
         
             <Col md={6}>
-            <Link to={`/offer/${offer.id}/edit`}>
+            <Link to={`/offers/${offer.id}/edit`}>
             <Button variant='light' >
                 <FiEdit3/>
             </Button>

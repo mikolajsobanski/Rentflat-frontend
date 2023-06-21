@@ -9,8 +9,6 @@ import Loader from "../components/Loader";
 
 function OfferAddScreen({location, history}) {
 
-
-    const [id, setId] = useState('')
     const [city, setCity] = useState('')
     const [streetAddress, setStreetAddress] = useState('')
     const [postalCode, setPostalCode] = useState('')
@@ -44,12 +42,10 @@ function OfferAddScreen({location, history}) {
          if (availableUntil < availableFrom) {
              setMessage('Incorrect rent dates!')
          } else {
-                dispatch(addOffer(id, city, streetAddress, postalCode, price, area, roomCount, marketType, description, district,
+                dispatch(addOffer(city, streetAddress, postalCode, price, area, roomCount, marketType, description, district,
                 mainPicture, allPictures, buildingDetails, availableFrom, availableUntil))
         }
-        console.log(id, city, streetAddress, postalCode, price, area, roomCount, marketType, description, district,
-            mainPicture, allPictures, buildingDetails, availableFrom, availableUntil)
-        //reload('/')
+        reload('/profile')
     }
 
     return (
@@ -60,18 +56,6 @@ function OfferAddScreen({location, history}) {
                 {error && <Message variant='danger'>{error}</Message>}
                 {loading && <Loader />}
                 <Form onSubmit={submitHandler}>
-
-                    <Form.Group className='py-3' controlId='owner id'>
-                        <Form.Label>Owner's id</Form.Label>
-                        <Form.Control
-                            required
-                            type='name'
-                            placeholder='Enter owner id'
-                            value={id}
-                            onChange={(e) => setId(e.target.value)}
-                        >
-                        </Form.Control>
-                    </Form.Group>
 
                     <Form.Group className='py-3' controlId='city'>
                         <Form.Label>Miasto</Form.Label>
@@ -191,19 +175,6 @@ function OfferAddScreen({location, history}) {
                             placeholder='Select main picture'
                             value={mainPicture}
                             onChange={(e) => setMainPicture(e.target.value)}
-                        >
-                        </Form.Control>
-                    </Form.Group>
-
-                    <Form.Group className='py-3' controlId='allPictures'>
-                        <Form.Label>Other pictures</Form.Label>
-                        <Form.Control
-                            required
-                            type='file' multiple
-                            accept='application/pdf, image/png'
-                            placeholder='Select other pictures'
-                            value={allPictures}
-                            onChange={(e) => setAllPictures(e.target.value)}
                         >
                         </Form.Control>
                     </Form.Group>
