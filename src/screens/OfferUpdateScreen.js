@@ -61,12 +61,12 @@ function OfferUpdateScreen({location, history}) {
                 {loading && <Loader />}
                 <Form onSubmit={submitHandler}>
 
-                    <Form.Group className='py-3' controlId='owner id'>
+                    <Form.Group className='py-3' controlId='offer id'>
                         <Form.Label>Owner's id</Form.Label>
                         <Form.Control
                             required
                             type='name'
-                            placeholder='Enter new owner id'
+                            placeholder='Enter the id of updated offer'
                             value={id}
                             onChange={(e) => setId(e.target.value)}
                         >

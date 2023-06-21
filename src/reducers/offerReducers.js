@@ -118,7 +118,7 @@ export const offerFilterListReducer = (state = { offers: [] }, action) => {
         case OFFER_FILTER_LIST_SUCCESS:
             return {
                 loading: false,
-                offers: action.payload.offers
+                offers: action.payload.content
             }
 
         case OFFER_FILTER_LIST_FAIL:

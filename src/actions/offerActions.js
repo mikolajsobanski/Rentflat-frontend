@@ -142,9 +142,9 @@ export const deleteOffer = (id) => async (dispatch, getState) => {
 export const listFilterOffers = (params) => async(dispatch) => {
     try {
         dispatch({type: OFFER_FILTER_LIST_REQUEST})
-        console.log(params.city,params.streetAddress,params.postalCode,params.district,params.marketType,params.areaFrom,params.areaTo,params.roomCountFrom,params.roomCountTo,params.avalibleFrom,params.avalibleUntil, params.priceFrom,params.priceTo)
-        const { data } = await 
-        axios.get(`http://localhost:8080/offers/filter?city=${params.city}&streetAddress=${params.streetAddress}&postalCode=${params.postalCode}&priceFrom=${params.priceFrom}&priceTo=${params.priceTo}&areaFrom=${params.areaFrom}&areaTo=${params.areaTo}&roomCountFrom=${params.roomCountFrom}&roomCountTo=${params.roomCountTo}&marketType=${params.marketType}&district=${params.district}&availableFrom="${params.avalibleFrom}"&availableUntil=${params.avalibleUntil}`)
+        const { data } = await
+        axios.get('http://localhost:8080/offers/filter',
+            {params: {city: params.city, streetAddress: params.streetAddress, postalCode: params.postalCode, district: params.district, marketType: params.marketType, areaFrom: params.areaFrom, areaTo: params.areaTo, roomCountFrom: params.roomCountFrom, roomCountTo: params.roomCountTo, priceFrom: params.priceFrom, priceTo: params.priceTo}, })
         dispatch({
             type:OFFER_FILTER_LIST_SUCCESS,
             payload: data
@@ -160,22 +160,51 @@ export const listFilterOffers = (params) => async(dispatch) => {
     }
 }
 
-export const addOffer = (id, city, streetAddress, postalCode, price, area, roomCount, marketType, description, district, mainPicture,
-                         allPictures, buildingDetails, availableFrom, availableUntil) => async(dispatch) => {
+export const addOffer = (city, streetAddress, postalCode, price, area, roomCount, marketType, description, district, mainPicture,
+                         allPictures, buildingDetails, availableFrom, availableUntil) => async(dispatch, getState) => {
     try{
         dispatch({
             type: OFFER_ADD_REQUEST
         })
-        const config = {
-            headers:{
-                'Content-type':'application/json'
-            }
-        }
+
+        const {
+            userLogin: { userInfo },
+        } = getState()
+
+         const config = {
+             headers: {
+                 //'Content-Type': 'application/json',
+                 Authorization: `Bearer ${userInfo.token}`
+             }
+         }
+
+        const formData = new FormData()
+        formData.append('offer', new Blob([JSON.stringify({
+            "city": city,
+            "streetAddress": streetAddress,
+            "postalCode": postalCode,
+            "price": price,
+            "area": area,
+            "roomCount": roomCount,
+            "marketType": marketType,
+            "description": description,
+            "district": district,
+            "buildingDetails": buildingDetails,
+            "availableFrom": availableFrom,
+            "availableUntil": availableUntil
+        })], {
+            type: "application/json"
+        }))
+        formData.append('image', new Blob([mainPicture], {
+            type: "multipart/form-data"
+        }))
+
+
+        console.log(formData)
+
         const {data} = await axios.post(
             'http://localhost:8080/offers',
-            {'id':id, 'city':city, 'streetAddress': streetAddress, 'postalCode': postalCode, 'price':price, 'area':area, 'roomCount':roomCount,
-                'marketType':marketType, 'description':description, 'district':district, 'mainPicture':mainPicture, 'allPictures':allPictures,
-                'buildingDetails':buildingDetails, 'availableFrom':availableFrom, 'availableUntil':availableUntil},
+            formData,
             config
         )
 
