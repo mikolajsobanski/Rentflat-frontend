@@ -161,7 +161,7 @@ export const listFilterOffers = (params) => async(dispatch) => {
 }
 
 export const addOffer = (city, streetAddress, postalCode, price, area, roomCount, marketType, description, district, mainPicture,
-                         allPictures, buildingDetails, availableFrom, availableUntil) => async(dispatch, getState) => {
+                         buildingDetails, availableFrom, availableUntil) => async(dispatch, getState) => {
     try{
         dispatch({
             type: OFFER_ADD_REQUEST
@@ -226,22 +226,48 @@ export const addOffer = (city, streetAddress, postalCode, price, area, roomCount
     }
 }
 
-export const updateOffer = (id, city, streetAddress, postalCode, price, area, roomCount, marketType, description, district, mainPicture,
-                         allPictures, buildingDetails, availableFrom, availableUntil) => async(dispatch) => {
+export const updateOffer = (city, streetAddress, postalCode, price, area, roomCount, marketType, description, district, mainPicture,
+                            buildingDetails, availableFrom, availableUntil) => async(dispatch, getState) => {
     try{
         dispatch({
             type: OFFER_UPDATE_REQUEST
         })
+
+        const {
+            userLogin: { userInfo },
+        } = getState()
+
         const config = {
-            headers:{
-                'Content-type':'application/json'
+            headers: {
+                //'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
             }
         }
+
+        const formData = new FormData()
+        formData.append('offer', new Blob([JSON.stringify({
+            "city": city,
+            "streetAddress": streetAddress,
+            "postalCode": postalCode,
+            "price": price,
+            "area": area,
+            "roomCount": roomCount,
+            "marketType": marketType,
+            "description": description,
+            "district": district,
+            "buildingDetails": buildingDetails,
+            "availableFrom": availableFrom,
+            "availableUntil": availableUntil
+        })], {
+            type: "application/json"
+        }))
+        formData.append('image', new Blob([mainPicture], {
+            type: "multipart/form-data"
+        }))
+
         const {data} = await axios.put(
             'http://localhost:8080/offers',
-            {'id':id, 'city':city, 'streetAddress': streetAddress, 'postalCode': postalCode, 'price':price, 'area':area, 'roomCount':roomCount,
-                'marketType':marketType, 'description':description, 'district':district, 'mainPicture':mainPicture, 'allPictures':allPictures,
-                'buildingDetails':buildingDetails, 'availableFrom':availableFrom, 'availableUntil':availableUntil},
+            formData,
             config
         )
 

@@ -51,7 +51,7 @@ function UserOffer({ offer }) {
         <Row className='userOffer-row'>
         
             <Col md={6}>
-            <Link to={`/offers/${offer.id}/edit`}>
+            <Link to={`/offer-update/${offer.id}`}>
             <Button variant='light' >
                 <FiEdit3/>
             </Button>

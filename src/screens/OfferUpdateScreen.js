@@ -1,16 +1,38 @@
-import React, {useState, useEffect} from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Form, Button} from 'react-bootstrap'
+import React, {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import {Button, Form} from 'react-bootstrap'
 import FormContainer from '../components/FormContainer'
-import { useNavigate } from 'react-router-dom';
-import { updateOffer } from '../actions/offerActions'
+import {useNavigate} from 'react-router-dom';
+import {getOffer, updateOffer} from '../actions/offerActions'
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 
 function OfferUpdateScreen({location, history}) {
+    const singleOffer = useSelector(state => state.offerSingleGet)
+    const {offer, loading: loadingSingleGet, success: successSingleGet, error: errorSingleGet} = singleOffer
+    useEffect(() => {
+
+        let urlElements = window.location.href.split('/')
+        console.log(urlElements)
+        dispatch(getOffer(urlElements[4]))
+    }, [])
+
+    useEffect(() => {
+        setCity(offer.city);
+        setStreetAddress(offer.streetAddress);
+        setPostalCode(offer.postalCode);
+        setPrice(offer.price);
+        setArea(offer.area);
+        setRoomCount(offer.roomCount);
+        setMarketType(offer.marketType);
+        setDescription(offer.description);
+        setDistrict(offer.district);
+        setBuildingDetails(offer.buildingDetails);
+        setAvailableFrom(offer.availableFrom);
+        setAvailableUntil(offer.availableUntil);
+    }, [offer])
 
 
-    const [id, setId] = useState('')
     const [city, setCity] = useState('')
     const [streetAddress, setStreetAddress] = useState('')
     const [postalCode, setPostalCode] = useState('')
@@ -44,11 +66,11 @@ function OfferUpdateScreen({location, history}) {
          if (availableUntil < availableFrom) {
              setMessage('Incorrect rent dates!')
          } else {
-                dispatch(updateOffer(id, city, streetAddress, postalCode, price, area, roomCount, marketType, description, district,
-                mainPicture, allPictures, buildingDetails, availableFrom, availableUntil))
+                dispatch(updateOffer(city, streetAddress, postalCode, price, area, roomCount, marketType, description,
+                    district, mainPicture, buildingDetails, availableFrom, availableUntil))
         }
-        console.log(id, city, streetAddress, postalCode, price, area, roomCount, marketType, description, district,
-            mainPicture, allPictures, buildingDetails, availableFrom, availableUntil)
+        console.log(city, streetAddress, postalCode, price, area, roomCount, marketType, description,
+            district, mainPicture, buildingDetails, availableFrom, availableUntil)
         //reload('/')
     }
 
@@ -60,18 +82,6 @@ function OfferUpdateScreen({location, history}) {
                 {error && <Message variant='danger'>{error}</Message>}
                 {loading && <Loader />}
                 <Form onSubmit={submitHandler}>
-
-                    <Form.Group className='py-3' controlId='offer id'>
-                        <Form.Label>Owner's id</Form.Label>
-                        <Form.Control
-                            required
-                            type='name'
-                            placeholder='Enter the id of updated offer'
-                            value={id}
-                            onChange={(e) => setId(e.target.value)}
-                        >
-                        </Form.Control>
-                    </Form.Group>
 
                     <Form.Group className='py-3' controlId='city'>
                         <Form.Label>Miasto</Form.Label>
@@ -191,19 +201,6 @@ function OfferUpdateScreen({location, history}) {
                             placeholder='Select new main picture'
                             value={mainPicture}
                             onChange={(e) => setMainPicture(e.target.value)}
-                        >
-                        </Form.Control>
-                    </Form.Group>
-
-                    <Form.Group className='py-3' controlId='allPictures'>
-                        <Form.Label>Other pictures</Form.Label>
-                        <Form.Control
-                            required
-                            type='file' multiple
-                            accept='application/pdf, image/png'
-                            placeholder='Select new other pictures'
-                            value={allPictures}
-                            onChange={(e) => setAllPictures(e.target.value)}
                         >
                         </Form.Control>
                     </Form.Group>

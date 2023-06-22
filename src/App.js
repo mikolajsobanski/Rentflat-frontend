@@ -29,7 +29,7 @@ function App() {
           <Route path="/search" element={<SearchScreen />} />
           <Route path="/offers/:id" element={<OfferDetailsScreen />} />
           <Route path="/offer-add" element={<OfferAddScreen />} />
-          <Route path="/offer-update" element={<OfferUpdateScreen />} />
+          <Route path="/offer-update/:id" element={<OfferUpdateScreen />} />
         </Routes>
       </main>
       <CopyWrites />
