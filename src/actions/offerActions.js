@@ -121,7 +121,7 @@ export const deleteOffer = (id) => async (dispatch, getState) => {
         }
 
         const { data } = await axios.delete(
-            `http://localhost:8080/offers/delete/${id}`,
+            `http://localhost:8080/offers/${id}`,
             config
         )
 
