@@ -43,7 +43,7 @@ function OfferAddScreen({location, history}) {
              setMessage('Incorrect rent dates!')
          } else {
                 dispatch(addOffer(city, streetAddress, postalCode, price, area, roomCount, marketType, description, district,
-                mainPicture, allPictures, buildingDetails, availableFrom, availableUntil))
+                mainPicture, buildingDetails, availableFrom, availableUntil))
         }
         reload('/profile')
     }
