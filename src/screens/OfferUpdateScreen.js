@@ -32,7 +32,11 @@ function OfferUpdateScreen({location, history}) {
         setAvailableUntil(offer.availableUntil);
     }, [offer])
 
+    useEffect(() => {
+        setOfferId(window.location.href.split('/')[4])
+    })
 
+    const [offerId, setOfferId] = useState('')
     const [city, setCity] = useState('')
     const [streetAddress, setStreetAddress] = useState('')
     const [postalCode, setPostalCode] = useState('')
@@ -66,10 +70,10 @@ function OfferUpdateScreen({location, history}) {
          if (availableUntil < availableFrom) {
              setMessage('Incorrect rent dates!')
          } else {
-                dispatch(updateOffer(city, streetAddress, postalCode, price, area, roomCount, marketType, description,
+                dispatch(updateOffer(offerId, city, streetAddress, postalCode, price, area, roomCount, marketType, description,
                     district, mainPicture, buildingDetails, availableFrom, availableUntil))
         }
-        console.log(city, streetAddress, postalCode, price, area, roomCount, marketType, description,
+        console.log(offerId, city, streetAddress, postalCode, price, area, roomCount, marketType, description,
             district, mainPicture, buildingDetails, availableFrom, availableUntil)
         //reload('/')
     }

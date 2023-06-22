@@ -28,6 +28,7 @@ import {
     OFFER_UPDATE_SUCCESS,
     OFFER_UPDATE_FAIL,
 } from '../constants/offerConstants'
+import offer from "../components/Offer";
 
 export const listOffers = () => async(dispatch) => {
     try {
@@ -226,7 +227,7 @@ export const addOffer = (city, streetAddress, postalCode, price, area, roomCount
     }
 }
 
-export const updateOffer = (city, streetAddress, postalCode, price, area, roomCount, marketType, description, district, mainPicture,
+export const updateOffer = (offerId, city, streetAddress, postalCode, price, area, roomCount, marketType, description, district, mainPicture,
                             buildingDetails, availableFrom, availableUntil) => async(dispatch, getState) => {
     try{
         dispatch({
@@ -246,6 +247,7 @@ export const updateOffer = (city, streetAddress, postalCode, price, area, roomCo
 
         const formData = new FormData()
         formData.append('offer', new Blob([JSON.stringify({
+            "id": offerId,
             "city": city,
             "streetAddress": streetAddress,
             "postalCode": postalCode,
