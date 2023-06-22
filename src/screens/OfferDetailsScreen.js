@@ -33,7 +33,7 @@ function OfferDetailsScreen() {
                         <Carousel.Item>
                             <img
                                 className="main-image"
-                                src={sample_image_2}
+                                src={offer.mainPicture}
                                 alt="First slide"
                             />
                         </Carousel.Item>
