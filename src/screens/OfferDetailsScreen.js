@@ -23,7 +23,8 @@ function OfferDetailsScreen() {
         dispatch(getOffer(urlElements[4]))
     }, [])
 
-
+    const data = offer.mainPicture
+    const Example = ({data}) => <img src={`data:image/jpeg;base64,${data}`} />
     return(
         <div className='base-container' >
             <Row>
@@ -32,7 +33,7 @@ function OfferDetailsScreen() {
                         <Carousel.Item>
                             <img
                                 className="main-image"
-                                src={offer.mainPicture}
+                                src={`data:image/jpeg;base64,${data}`}
                                 alt="First slide"
                             />
                         </Carousel.Item>
@@ -53,20 +54,6 @@ function OfferDetailsScreen() {
                     </Carousel>
 
                     <Container>
-                        <div style={{
-                            display: "flex",
-                            justifyContent:"center",
-                            alignItems: "center",
-                            height: "100%",
-                            marginTop: 10,
-                            marginBottom: 10,
-                            backgroundColor: "gainsboro",
-                            borderRadius: 15
-                        }}>
-                        <h1>
-                            Tytul_oferty
-                        </h1>
-                        </div>
                         <div style={{
                             display: "flex",
                             justifyContent:"center",
