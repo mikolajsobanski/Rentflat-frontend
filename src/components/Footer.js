@@ -11,9 +11,6 @@ function Footer() {
                 <h3 className='header'>About us</h3>
                 <div> How it works</div>
                 <div> Investors</div>
-                <div> Cos tam cos tam</div>
-                <div> Cos tam cos tam</div>
-                <div> Cos tam cos tam</div>
               </Col>
               <Col md ={4}>
                 <h3  className='header'>Contact us</h3>

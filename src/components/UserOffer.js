@@ -28,7 +28,7 @@ function UserOffer({ offer }) {
 
   return (
     
-    <Card className="offerCard">
+    <Card className="offerCard-user">
         <Link to={`/offers/${offer.id}`}>
             <Card.Img className='offerImage' src={offer.mainPicture} />
         </Link>

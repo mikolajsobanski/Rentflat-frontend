@@ -72,9 +72,7 @@ function OfferUpdateScreen({location, history}) {
                 dispatch(updateOffer(offerId, city, streetAddress, postalCode, price, area, roomCount, marketType, description,
                     district, mainPicture, buildingDetails, availableFrom, availableUntil))
         }
-        console.log(offerId, city, streetAddress, postalCode, price, area, roomCount, marketType, description,
-            district, mainPicture, buildingDetails, availableFrom, availableUntil)
-        //reload('/')
+        reload('/profile')
     }
 
     return (
