@@ -13,7 +13,6 @@ function OfferUpdateScreen({location, history}) {
     useEffect(() => {
 
         let urlElements = window.location.href.split('/')
-        console.log(urlElements)
         dispatch(getOffer(urlElements[4]))
     }, [])
 

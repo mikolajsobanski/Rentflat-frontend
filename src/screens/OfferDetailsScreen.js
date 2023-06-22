@@ -18,7 +18,6 @@ function OfferDetailsScreen() {
     const {offer, loading: loadingSingleGet, success: successSingleGet, error: errorSingleGet} = singleOffer
     useEffect(() => {
 
-        //console.log(window.location.pathname)
         let urlElements = window.location.href.split('/')
         console.log(urlElements)
         dispatch(getOffer(urlElements[4]))
@@ -42,6 +41,13 @@ function OfferDetailsScreen() {
                                 className="main-image"
                                 src={sample_image}
                                 alt="Second slide"
+                            />
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img
+                                className="main-image"
+                                src={sample_image_2}
+                                alt="Third slide"
                             />
                         </Carousel.Item>
                     </Carousel>
